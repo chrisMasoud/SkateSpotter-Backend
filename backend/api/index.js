@@ -322,39 +322,32 @@ app.post("/add-spot", (req, res) => {
     longitude,
     spotRating,
     spotDescription,
+    spotImage,
     difficulty,
   } = req.body;
-  const spotImage = req.files.spotImage;
-  const imageFileName = `${Date.now()}-${spotImage.name}`;
-  spotImage.mv(path.join(__dirname, "public/uploads", imageFileName), (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Error uploading image");
-    }
 
-    const sql =
-      "INSERT INTO SkateSpot (SpotName, Latitude, Longitude, Rating, Descriptions, Spotimage, difficulty) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    connection.query(
-      sql,
-      [
-        spotName,
-        latitude,
-        longitude,
-        spotRating,
-        spotDescription,
-        imageFileName,
-        difficulty,
-      ],
-      (err, result) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send("Error inserting data into the database");
-        }
-        console.log("Spot added successfully");
-        res.status(200).send("Spot added successfully");
+  const sql =
+    "INSERT INTO SkateSpot (SpotName, Latitude, Longitude, Rating, Descriptions, Spotimage, difficulty) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  connection.query(
+    sql,
+    [
+      spotName,
+      latitude,
+      longitude,
+      spotRating,
+      spotDescription,
+      spotImage,
+      difficulty,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error inserting data into the database");
       }
-    );
-  });
+      console.log("Spot added successfully");
+      res.status(200).send("Spot added successfully");
+    }
+  );
 });
 
 app.post("/api/bookmarks", (req, res) => {
