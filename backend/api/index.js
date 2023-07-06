@@ -6,8 +6,10 @@ const mysql = require("mysql");
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const md5 = require("md5");
+const cors = require("cors");
 const app = express();
 
+app.use(cors);
 app.use(express.json());
 app.use(fileUpload());
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
