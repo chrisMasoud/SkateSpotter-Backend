@@ -14,7 +14,7 @@ app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 const { createProxyMiddleware: proxy } = require("http-proxy-middleware");
 app.use(
   "/skate-spotter",
-  proxy("http://skate-spotter-backend.vercel.app", {
+  proxy("http://localhost:3000", {
     proxyReqPathResolver: (req) => {
       return `/skate-spotter${req.url}`;
     },
@@ -564,7 +564,8 @@ app.get("/api/about", (req, res) => {
   });
 });
 
-// This MUST be at the bottom
-app.listen(8000, () => {
-  console.log("Server started on port 8000");
-});
+// app.listen(8000, () => {
+//   console.log("Server started on port 8000");
+// });
+
+export default app;
