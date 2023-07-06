@@ -14,7 +14,7 @@ app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 const { createProxyMiddleware: proxy } = require("http-proxy-middleware");
 app.use(
   "/skate-spotter",
-  proxy("http://localhost:3000", {
+  proxy("http://skate-spotter-backend.vercel.app", {
     proxyReqPathResolver: (req) => {
       return `/skate-spotter${req.url}`;
     },
@@ -56,22 +56,6 @@ app.get("/api/spots", (req, res) => {
     }
   });
 });
-
-/*
-app.get("/api/searchspots", (req, res) => {
-  const { keyword } = req.query;
-  const query = `SELECT * FROM SkateSpot WHERE SpotName LIKE '%${keyword}%'`;
-
-  connection.query(query, (error, results) => {
-    if (error) {
-      console.error("Error fetching news data:", error);
-      res.status(500).json({ error: "An error occurred" });
-    } else {
-      res.json(results);
-    }
-  });
-});
-*/
 
 app.get("/api/news", (req, res) => {
   const query = "SELECT * FROM News";
