@@ -13,15 +13,15 @@ app.use(cors);
 app.use(express.json());
 app.use(fileUpload());
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
-const { createProxyMiddleware: proxy } = require("http-proxy-middleware");
-app.use(
-  "/skate-spotter",
-  proxy("http://localhost:3000", {
-    proxyReqPathResolver: (req) => {
-      return `/skate-spotter${req.url}`;
-    },
-  })
-);
+// const { createProxyMiddleware: proxy } = require("http-proxy-middleware");
+// app.use(
+//   "/skate-spotter",
+//   proxy("http://localhost:3000", {
+//     proxyReqPathResolver: (req) => {
+//       return `/skate-spotter${req.url}`;
+//     },
+//   })
+// );
 app.use(
   session({
     secret: "replace-with-something-else",
