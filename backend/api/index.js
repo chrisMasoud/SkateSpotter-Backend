@@ -566,7 +566,8 @@ app.get("/api/about", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 8000, () => {
+const server = app.listen(process.env.PORT || 8000, () => {
+  server.timeout = 30000;
   console.log("Server started");
 });
 
